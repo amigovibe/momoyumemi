@@ -470,6 +470,22 @@ export default function MomoYumemiPuzzle() {
     }
   };
 
+  const handleLogout = () => {
+    stopMusic();
+    setMusicOn(false);
+    setLoggedIn(false);
+    setXUser("");
+    setLevel(0);
+    setTiles(shuffle());
+    setMoves(0);
+    setTime(0);
+    setWon(false);
+    setRunning(false);
+    setCompleted([]);
+    setBestTimes({ 0:null,1:null,2:null,3:null });
+    try { localStorage.removeItem("momo_progress"); } catch {}
+  };
+
   const toggleMusic = () => {
     if (musicOn) { stopMusic(); setMusicOn(false); }
     else { startMusic(); setMusicOn(true); }
@@ -687,12 +703,28 @@ export default function MomoYumemiPuzzle() {
           <div style={S.logoText}>momoyumemi puzzle</div>
           <div style={S.subText}>{nft.tag} · {nft.label} · <span style={{ color:"rgba(200,120,255,0.7)" }}>@{xUser}</span></div>
         </div>
-        <button onClick={toggleMusic} style={S.musicBtn} title={musicOn ? "Pause music" : "Play lo-fi"}>
-          <span style={{ fontSize: isDesktop ? 16 : 14 }}>🎵</span>
-          <span style={{ fontSize:10, marginLeft:5, color: musicOn ? "#c87aff" : "rgba(255,255,255,0.5)", fontWeight:700, letterSpacing:"0.05em" }}>
-            {musicOn ? "ON" : "OFF"}
-          </span>
-        </button>
+        <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+          <button onClick={toggleMusic} style={S.musicBtn} title={musicOn ? "Pause music" : "Play lo-fi"}>
+            <span style={{ fontSize: isDesktop ? 16 : 14 }}>🎵</span>
+            <span style={{ fontSize:10, marginLeft:5, color: musicOn ? "#c87aff" : "rgba(255,255,255,0.5)", fontWeight:700, letterSpacing:"0.05em" }}>
+              {musicOn ? "ON" : "OFF"}
+            </span>
+          </button>
+          <button onClick={handleLogout} title="Log out" style={{
+            display:"flex", alignItems:"center", gap:5,
+            background:"rgba(255,255,255,0.05)",
+            border:"1px solid rgba(255,255,255,0.12)",
+            borderRadius:10, padding:"7px 12px",
+            color:"rgba(255,255,255,0.5)", fontSize:11, fontWeight:700,
+            cursor:"pointer", letterSpacing:"0.05em",
+            transition:"all 0.2s",
+          }}
+          onMouseEnter={e => { e.currentTarget.style.background="rgba(255,80,80,0.12)"; e.currentTarget.style.borderColor="rgba(255,80,80,0.3)"; e.currentTarget.style.color="rgba(255,120,120,0.9)"; }}
+          onMouseLeave={e => { e.currentTarget.style.background="rgba(255,255,255,0.05)"; e.currentTarget.style.borderColor="rgba(255,255,255,0.12)"; e.currentTarget.style.color="rgba(255,255,255,0.5)"; }}
+          >
+            ⏻ LOG OUT
+          </button>
+        </div>
       </header>
 
       {/* ── MAIN AREA ── */}
