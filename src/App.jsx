@@ -152,7 +152,7 @@ function LoginScreen({ onLogin }) {
           transition:"border 0.3s",
         }}>
           <div style={{ fontSize:12, color:"rgba(255,255,255,0.45)", marginBottom:10 }}>
-            Step 1 — Follow us on X, then confirm below
+            Follow us on X, then confirm below
           </div>
           <a
             href="https://x.com/intent/follow?screen_name=momoyumemi"
